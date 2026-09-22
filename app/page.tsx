@@ -13,6 +13,7 @@ import {
 } from "@/lib/engine/fsrs-scheduler";
 import { ExamGradeResult } from "@/lib/engine/scoring-engine";
 import { SemesterPassModal } from "@/components/checkout/semester-pass-modal";
+import { Footer } from "@/components/legal/footer";
 import {
   Stethoscope,
   Clock,
@@ -100,7 +101,7 @@ export default function DashboardPage() {
               size="sm"
               className="h-8 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-sm"
             >
-              Exam Passes ($79)
+              Exam Passes ($79 AUD)
             </Button>
           </Link>
         </div>
@@ -330,7 +331,7 @@ export default function DashboardPage() {
               Ready for high-stakes test day? Unlock all clinical cases now.
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
-              Pay once for 90 days ($79) or 180 days ($149). Zero monthly recurring charges. Unlimited case simulations, complete EHR tabs, and FSRS cognitive memory curves.
+              Pay once for 90 days ($79 AUD) or 180 days ($149 AUD). All prices include 10% Australian GST. Zero monthly recurring charges. Unlimited case simulations, complete EHR tabs, and FSRS cognitive memory curves.
             </p>
           </div>
 
@@ -356,12 +357,8 @@ export default function DashboardPage() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 text-center">
-        <p>
-          NextGen Clinical Simulator • Built for NCLEX-RN and USMLE Candidates • Spaced Repetition Learning Mechanics
-        </p>
-      </footer>
+      {/* Australian Compliance Footer */}
+      <Footer />
 
       {/* Checkout Modal */}
       <SemesterPassModal

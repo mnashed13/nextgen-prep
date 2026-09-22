@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Footer } from "@/components/legal/footer";
 
 interface ReviewClientProps {
   caseStudy: ClinicalCase;
@@ -322,6 +323,9 @@ export function ReviewClient({ caseStudy }: ReviewClientProps) {
           </div>
         </div>
       </main>
+
+      {/* Australian Compliance Footer */}
+      <Footer />
 
       {/* Rationale Modal */}
       <ReviewRationaleModal
