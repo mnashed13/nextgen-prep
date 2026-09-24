@@ -46,13 +46,16 @@ export function PricingTable() {
               </Badge>
             </div>
 
-            <div className="flex items-baseline space-x-2 mb-4">
+            <div className="flex items-baseline space-x-2 mb-1">
               <span className="text-4xl sm:text-5xl font-extrabold font-mono text-slate-900">
                 $79
               </span>
               <span className="text-xs text-slate-500 font-medium">
-                / 90-day single access
+                AUD / 90-day single access
               </span>
+            </div>
+            <div className="text-[11px] text-emerald-700 font-semibold mb-4">
+              Includes 10% Australian GST • No auto-renewal
             </div>
 
             <p className="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed">
@@ -89,7 +92,7 @@ export function PricingTable() {
             onClick={() => handleOpenCheckout("semester_cram")}
             className="w-full h-12 text-sm font-bold border-slate-800 text-slate-900 hover:bg-slate-900 hover:text-white transition-colors cursor-pointer"
           >
-            Activate 90-Day Cram Pass ($79)
+            Activate 90-Day Cram Pass ($79 AUD)
           </Button>
         </div>
 
@@ -110,13 +113,16 @@ export function PricingTable() {
               </Badge>
             </div>
 
-            <div className="flex items-baseline space-x-2 mb-4">
+            <div className="flex items-baseline space-x-2 mb-1">
               <span className="text-4xl sm:text-5xl font-extrabold font-mono text-white">
                 $149
               </span>
               <span className="text-xs text-slate-400 font-medium">
-                / 180-day full access
+                AUD / 180-day full access
               </span>
+            </div>
+            <div className="text-[11px] text-emerald-400 font-semibold mb-4">
+              Includes 10% Australian GST • No auto-renewal
             </div>
 
             <p className="text-xs sm:text-sm text-slate-300 mb-6 leading-relaxed">
@@ -153,7 +159,7 @@ export function PricingTable() {
             onClick={() => handleOpenCheckout("full_access")}
             className="w-full h-12 text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg transition-all cursor-pointer"
           >
-            Activate 180-Day Full Pass ($149)
+            Activate 180-Day Full Pass ($149 AUD)
           </Button>
         </div>
       </div>
@@ -172,8 +178,8 @@ export function PricingTable() {
         </div>
         <div className="flex flex-col items-center space-y-1.5">
           <HelpCircle className="h-5 w-5 text-indigo-600" />
-          <span className="font-bold text-slate-800">CBT Simulation Fidelity</span>
-          <span className="text-slate-500">Exact replica of official NCSBN test center experience.</span>
+          <span className="font-bold text-slate-800">Australian Consumer Law</span>
+          <span className="text-slate-500">Statutory guarantees &amp; 14-day satisfaction review.</span>
         </div>
       </div>
 

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import {
   Dialog,
   DialogContent,
@@ -10,6 +11,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { activateAccessPass } from "@/lib/engine/fsrs-scheduler";
 import confetti from "canvas-confetti";
 import {
@@ -17,6 +19,7 @@ import {
   Lock,
   CheckCircle2,
   Tag,
+  Scale,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -44,9 +47,11 @@ export function SemesterPassModal({
   const [couponError, setCouponError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(true);
 
   const basePrice = passType === "semester_cram" ? 79 : 149;
   const finalPrice = Math.max(0, Math.round(basePrice * (1 - discountPercent / 100)));
+  const gstAmount = (finalPrice / 11).toFixed(2);
 
   const handleApplyCoupon = () => {
     setCouponError("");
@@ -145,7 +150,8 @@ export function SemesterPassModal({
               >
                 <div className="font-bold text-slate-900">90-Day Pass</div>
                 <div className="text-slate-500 text-[11px]">Semester Cram</div>
-                <div className="font-mono font-bold text-blue-700 mt-1">$79</div>
+                <div className="font-mono font-bold text-blue-700 mt-1">$79 AUD</div>
+                <div className="text-[10px] text-slate-400">inc. GST • Non-renewing</div>
               </button>
 
               <button
@@ -159,7 +165,8 @@ export function SemesterPassModal({
               >
                 <div className="font-bold text-slate-900">180-Day Pass</div>
                 <div className="text-slate-500 text-[11px]">Full Clinical Access</div>
-                <div className="font-mono font-bold text-blue-700 mt-1">$149</div>
+                <div className="font-mono font-bold text-blue-700 mt-1">$149 AUD</div>
+                <div className="text-[10px] text-slate-400">inc. GST • Non-renewing</div>
               </button>
             </div>
 
@@ -259,33 +266,86 @@ export function SemesterPassModal({
               )}
             </div>
 
-            {/* Price Summary */}
-            <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between text-xs">
-              <span className="font-semibold text-slate-700">Total Billed Today:</span>
-              <div className="text-right">
-                {discountPercent > 0 && (
-                  <span className="text-slate-400 line-through text-xs mr-2 font-mono">
-                    ${basePrice}
+            {/* Price Summary with Australian GST Breakdown */}
+            <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1.5 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-slate-700">Total Billed Today:</span>
+                <div className="text-right">
+                  {discountPercent > 0 && (
+                    <span className="text-slate-400 line-through text-xs mr-2 font-mono">
+                      ${basePrice} AUD
+                    </span>
+                  )}
+                  <span className="text-lg font-mono font-extrabold text-slate-950">
+                    ${finalPrice} AUD
                   </span>
-                )}
-                <span className="text-lg font-mono font-extrabold text-slate-950">
-                  ${finalPrice}
-                </span>
-                <span className="text-[10px] text-slate-500 block">
-                  (Single charge • Non-renewing)
-                </span>
+                </div>
               </div>
+              <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-200">
+                <span>Includes 10% Australian GST:</span>
+                <span className="font-mono font-medium">${gstAmount} AUD</span>
+              </div>
+              <div className="text-[10px] text-slate-400 text-right">
+                Single charge • Strictly non-renewing fixed license
+              </div>
+            </div>
+
+            {/* Australian Terms & Privacy Consent Checkbox */}
+            <div className="pt-1 flex items-start space-x-2">
+              <Checkbox
+                id="modal-terms-checkbox"
+                checked={agreedToTerms}
+                onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
+                className="mt-0.5"
+              />
+              <label
+                htmlFor="modal-terms-checkbox"
+                className="text-[11px] text-slate-600 leading-tight cursor-pointer"
+              >
+                I agree to the{" "}
+                <Link
+                  href="/terms"
+                  target="_blank"
+                  className="text-blue-600 underline hover:text-blue-800"
+                >
+                  Terms and Conditions
+                </Link>
+                ,{" "}
+                <Link
+                  href="/privacy"
+                  target="_blank"
+                  className="text-blue-600 underline hover:text-blue-800"
+                >
+                  Privacy Policy (APPs)
+                </Link>
+                , and understand my statutory rights under the{" "}
+                <Link
+                  href="/refund-policy"
+                  target="_blank"
+                  className="text-blue-600 underline hover:text-blue-800"
+                >
+                  Australian Consumer Law
+                </Link>
+                .
+              </label>
             </div>
 
             <Button
               type="submit"
-              disabled={isProcessing}
+              disabled={isProcessing || !agreedToTerms}
               variant="default"
               size="lg"
-              className="w-full h-11 text-xs sm:text-sm font-bold bg-blue-700 hover:bg-blue-800 text-white cursor-pointer"
+              className="w-full h-11 text-xs sm:text-sm font-bold bg-blue-700 hover:bg-blue-800 text-white cursor-pointer disabled:opacity-50"
             >
-              {isProcessing ? "Authorizing Clinical License..." : `Confirm & Pay $${finalPrice}`}
+              {isProcessing
+                ? "Authorizing Clinical License..."
+                : `Confirm & Pay $${finalPrice} AUD`}
             </Button>
+
+            <div className="text-center text-[10px] text-slate-400 flex items-center justify-center gap-1">
+              <Scale className="h-3 w-3 text-slate-400" />
+              <span>Protected by the Australian Consumer Law Guarantees</span>
+            </div>
           </form>
         )}
       </DialogContent>

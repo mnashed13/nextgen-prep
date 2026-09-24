@@ -5,6 +5,7 @@ import Link from "next/link";
 import { PricingTable } from "@/components/checkout/pricing-table";
 import { ArrowLeft, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Footer } from "@/components/legal/footer";
 
 export default function PricingPage() {
   return (
@@ -90,12 +91,8 @@ export default function PricingPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 text-center">
-        <p>
-          NextGen Clinical Simulator • Not affiliated with NCSBN or USMLE. Built for educational simulation.
-        </p>
-      </footer>
+      {/* Australian Compliance Footer */}
+      <Footer />
     </div>
   );
 }
